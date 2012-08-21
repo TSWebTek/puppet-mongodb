@@ -22,7 +22,7 @@ if [ -e /usr/bin/mongodump ]; then
     if [ ! -e "$BKPDIR/$FULL_FILE.tgz" ]; then
       # Create full backup
       cd $BKPDIR
-      mongodump > /dev/null && rmdir 'dump/*' && tar --remove-files -czf "$FULL_FILE.tgz" dump
+      mongodump > /dev/null && rmdir 'dump/*' && nice -19 tar --remove-files -cf - dump | gzip -9 > "$FULL_FILE.tgz"
     fi
 
   else
